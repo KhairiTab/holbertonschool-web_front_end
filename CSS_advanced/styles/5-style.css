@@ -15,12 +15,12 @@
   }
 html{
     scroll-behavior: smooth;
-    font: 62.5%;
+    font-size: 62.5%;
 }
 body{
     font-family: var(--font-family-base);
     color: var(--text-color);
-    font: var(--font-size-medium);
+    font-size: var(--font-size-medium);
 }
 a {
     color: #161616;
