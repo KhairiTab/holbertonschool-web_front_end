@@ -37,23 +37,28 @@ body {
     line-height: var(--line-height-base);
   }
   
-a{
-    color: var(--text-color);
-    text-decoration: none;
-  }
-a:not(:empty) {
-  text-decoration: none;
-}
-
-a:not(:empty):visited {
-  font-style: italic;
-}
-a:not(:empty):hover {
-    text-decoration: underline;
-  }
-  a:not(:empty):active{
-    background-color:var(--color-light-grey);
-  }
+  a {
+        color: var(--text-color);
+        text-decoration: none;
+  
+        &:not(:empty){
+        text-decoration: none;
+        }
+  
+        &:visited{
+            font-style: italic;
+        }
+  
+        &:hover {
+            text-decoration: underline;
+        }
+  
+        &:active {
+            background-color: var(--color-light-grey);
+        }
+    
+    }
+  
   .visually-hidden {
     display: none;
   }
