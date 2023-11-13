@@ -37,27 +37,23 @@ body {
     line-height: var(--line-height-base);
   }
   
-  a {
-        color: var(--text-color);
-        text-decoration: none;
+  a:link {
+    color: var(--text-color);
+    text-decoration: none;
+  }
   
-        &:not(:empty){
-        text-decoration: none;
-        }
+  a:visited {
+    font-style: italic;
+  }
   
-        &:visited{
-            font-style: italic;
-        }
+  a:hover {
+    text-decoration: underline;
+  }
   
-        &:hover {
-            text-decoration: underline;
-        }
+  a:active {
+    background-color: var(--color-light-grey);
+  }
   
-        &:active {
-            background-color: var(--color-light-grey);
-        }
-    
-    }
   
   .visually-hidden {
     display: none;
