@@ -200,8 +200,8 @@
   .social-link{
     display: block;
   }
-  .social-link.svg{
-    color:var(--text-color) ;
+  .social-link > svg{
+    fill:var(--text-color) ;
   }
   
   h1, h2, h3, h4, h5, h6 {
