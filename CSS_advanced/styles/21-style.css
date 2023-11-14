@@ -283,6 +283,12 @@
     list-style: none;
   }
   
+  .row:empty:after {
+    content: none;
+    display: table;
+    float: none;
+  }
+  
   .col-1-3 {
     width: 33.33%;
     float: left;
