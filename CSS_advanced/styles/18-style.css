@@ -32,9 +32,9 @@
     --nav-item-font-family:var(--font-family-title);
     --nav-item-font-weight:var(--font-weight-bold);
     --nav-item-font-size:var(--font-size-medium);
-    --nav-item-letter-spacing:calc(0.04 * var(--root-font-size));
+    --nav-item-letter-spacing: 0.04rem;
     --nav-item-display: inline-block;
-    --nav-item-margin:calc( 3 * var(--root-element-size)) 0;
+    --nav-item-margin:0 0 3rem 0;;
     --nav-item-link-hover:var(--color-primary);
   }
   *,*:after,*:before {
@@ -139,13 +139,5 @@ body {
     margin: var(--nav-item-margin);
   }
   .nav.nav_link{
-    padding-top: calc(var(--root-padding) / 2); 
-    padding-bottom: calc(var(--root-padding) / 2);
-    padding-left: var(--root-padding);
-    padding-right: var(--root-padding);
-  }
-
-  .nav:hover .nav-link:hover {
     color: var(--nav-item-link-hover);
   }
-  
