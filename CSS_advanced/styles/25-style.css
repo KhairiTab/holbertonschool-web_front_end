@@ -66,21 +66,7 @@
     color: var(--text-color);
     text-decoration: none;
   }
-  .class{
-    display: var(--button-display);
-    padding: var(--button-padding);
-    border-style: var(--button-border);
-    font-size: var(--button-font-size);
-    color: var(--button-color);
-    text-decoration: var(--button-text-decoration);
-  }
-  button:hover{
-    color: var(--button-hover-color);
-    text-decoration: var(--button-hover-decoration);
-    background: var(--button-hover-backgroud);
-  }
 
-  
   a:visited {
     font-style: italic;
   }
@@ -91,6 +77,19 @@
   
   a:active {
     background-color: var(--color-light-grey);
+  }
+  .button{
+    display: var(--button-display);
+    padding: var(--button-padding);
+    border: var(--button-border);
+    font-size: var(--button-font-size);
+    color: var(--button-color);
+    text-decoration: var(--button-text-decoration);
+  }
+  button:hover{
+    color: var(--button-hover-color);
+    text-decoration: var(--button-hover-decoration);
+    background: var(--button-hover-backgroud);
   }
   
   .visually-hidden {
