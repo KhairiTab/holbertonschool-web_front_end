@@ -282,7 +282,7 @@
     padding: 0;
     list-style: none;
   }
-  
+
   .row:empty:after {
     content: none;
     display: table;
@@ -300,11 +300,7 @@
     float: left;
     padding: 0.5rem;
   }
-  .row::after {
-    content: '';
-    display: table;
-    clear: both;
-  }
+  
   [class^="col-"] {
     float: left;
     padding: 0.5rem;
