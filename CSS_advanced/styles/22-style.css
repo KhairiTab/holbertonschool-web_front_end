@@ -36,7 +36,6 @@
     --nav-item-margin: 0 0 3rem 0;
     --nav-item-link-hover: var(--color-primary);
     --section-tagline-margin: 0;
-    background: var(--color-black);
   }
   
 *, *:before, *:after {
