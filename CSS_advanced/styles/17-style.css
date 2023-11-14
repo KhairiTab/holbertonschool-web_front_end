@@ -71,6 +71,13 @@ body {
   .card-category {
     color: var(--color-primary);
   }
+  .section-title{
+    font-family: var(--font-family-title);
+    font-size: var(--font-size-xx-large);
+    font-weight: var(--font-weight-bold);
+    margin: var(--section-title-margin);
+    color:var(--section-title-color);
+  }
   
   .section-tagline {
     color: var(--color-primary);
@@ -83,14 +90,7 @@ body {
     margin-left:auto;
     margin-right: auto;
   }
-
-  .section-title{
-    font-family: var(--font-family-title);
-    font-size: var(--font-size-xx-large);
-    font-weight: var(--font-weight-bold);
-    margin: var(--section-title-margin);
-    color:var(--section-title-color);
-  }
+  
   .section{
     padding: var(--section-body-padding);
   }
