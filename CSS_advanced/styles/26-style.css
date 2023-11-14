@@ -216,6 +216,21 @@
     text-decoration: none;
   }
   
+  .card-testimonial{
+    text-align: center;
+  }
+  .card-testimonial.card-avatar{
+    border-radius: 50%;
+    width: 10rem;
+    height: 10rem;
+  }
+  .card-testimonial.card-quote city{
+    display: block;
+    padding-top: 1rem;
+    color: var(--color-primary);
+  }
+  
+  
   .section-footer {
     padding: var(--section-footer-padding);
     text-align: var(--section-footer-align);
@@ -247,20 +262,6 @@
     fill: var(--text-color);
   }
 
-  .card-testimonial{
-    text-align: center;
-  }
-  .card-testimonial.card-avatar{
-    border-radius: 50%;
-    width: 10rem;
-    height: 10rem;
-  }
-  .card-testimonial.card-quote city{
-    display: block;
-    padding-top: 1rem;
-    color: var(--color-primary);
-  }
-  
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-family-title);
     font-weight: var(--font-weight-bold);
