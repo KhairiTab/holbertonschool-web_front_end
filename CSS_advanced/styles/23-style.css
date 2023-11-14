@@ -78,6 +78,7 @@
   
   .card-category {
     color: var(--color-primary);
+    
   }
   
   .section-tagline {
@@ -205,6 +206,20 @@
   .social-link > svg{
     fill: var(--text-color);
   }
+  .card-services .card-title {
+    margin: none;
+  }
+  .card-services.a{
+    display: block;
+    padding: 200%;
+    background-color: var(--color-light-grey);
+  }
+  .card-services.a{
+    color: var(--color-white);
+    background-color: var(--color-primary);
+    text-decoration: none;
+  }
+  
   
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-family-title);
