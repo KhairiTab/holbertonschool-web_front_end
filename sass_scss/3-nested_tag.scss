@@ -1,0 +1,11 @@
+$mymargin : 0;
+$mypadding : 0;
+
+body{
+    margin: $mymargin;
+
+    p{
+        $mymargin :10px;
+        margin: $mymargin;
+    }
+}
