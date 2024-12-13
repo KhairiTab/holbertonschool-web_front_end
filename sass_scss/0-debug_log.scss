@@ -1,0 +1,4 @@
+// Define a variable
+$message: "Hello world";
+// Use the @debug directive
+@debug $message;
