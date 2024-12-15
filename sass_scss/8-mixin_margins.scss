@@ -1,0 +1,11 @@
+@mixin margins($left,$right) {
+    margin-left : $left;
+    margin-right: $right;
+}
+/* Apply margins using the mixin */
+body {
+    @include margins(10px,10px )
+}
+div {
+    @include margins(15px,15px )
+}
