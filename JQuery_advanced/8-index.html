@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wikipedia Search</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        #pagination li {
+            display: inline;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .active {
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        $(document).ready(function() {
+            createSearchForm();
+
+            function createSearchForm() {
+                let form = $('<form>');
+                let searchInput = $("<input>").attr({
+                    type: "text",
+                    placeholder: "Search on Wikipedia"
+                });
+                let submitButton = $("<input>").attr({
+                    type: "submit",
+                    value: "Search"
+                });
+
+                let searchResultsList = $('<ul>').attr('id', 'results');
+                form.append(searchInput, submitButton);
+
+                let paginationList = $('<ul>').attr('id', "pagination"); 
+                $('body').append(form, searchResultsList, paginationList);
+
+                form.on("submit", function(event) {
+                    event.preventDefault();
+                    let searchTerm = searchInput.val();
+                    queryWikipedia(searchTerm);
+                });
+            }
+
+            function addNewArticle(id, title, snippet) {
+                let listItem = $('<li>');
+                let titleParagraph = $("<p>").append(
+                    $("<span>").text("id - "),
+                    $("<b>").text(title)
+                );
+                let snippetParagraph = $("<p>").html(snippet); // Use .html() to correctly display HTML from Wikipedia
+                listItem.append(titleParagraph, snippetParagraph);
+                $('#results').append(listItem);
+            }
+
+            function queryWikipedia(search, offset = 0) {
+                let apiUrl = `https://en.wikipedia.org/w/api.php`;
+
+                let params = {
+                    action: 'query',
+                    format: 'json',
+                    list: 'search',
+                    srsearch: search,
+                    sroffset: offset,
+                    origin: '*'
+                };
+                // AJAX request to fetch search results from Wikipedia
+                $.ajax({
+                    url: apiUrl,
+                    data: params,
+                    dataType: 'jsonp',
+                    success: function(data) {
+                        $('#results').empty(); // Clear previous results
+                        let results = data.query.search;
+                        results.forEach(function(result) {
+                            addNewArticle(result.pageid, result.title, result.snippet);
+                        });
+
+                        buildPagination(data.query.searchinfo.totalhits, 10, offset);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error", error);
+                    }
+                });
+            }
+
+            // Build pagination
+            function buildPagination(numberOfItems, itemsPerPage, currentOffset) {
+                const totalPages = Math.ceil(numberOfItems / itemsPerPage);
+                $('#pagination').empty();
+
+                for (let i = 0; i < totalPages; i++) {
+                    let pageNumber = i + 1;
+                    let listItem = $('<li>').text(pageNumber).click(function() {
+                        let offset = (pageNumber - 1) * itemsPerPage;
+                        queryWikipedia($('input[type="text"]').val(), offset);
+                    });
+                    if (currentOffset === i * itemsPerPage) {
+                        listItem.addClass("active");
+                    }
+                    $("#pagination").append(listItem);
+                }
+            }
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>
