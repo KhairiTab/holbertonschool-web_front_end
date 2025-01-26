@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Task 1</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script type="application/javascript">
+
+        function createSearchForm() {
+            let form = $('<form>');
+            let searchInput =$("<input>").attr({
+                type: "text",
+                placeholder: "Search on Wikipedia"
+            });
+            let submitButton = $("<input>").attr({
+                type: "submit",
+                value: "Search"
+            });
+
+            let searchResultsList = $('<ul>');
+            form.append(searchInput, submitButton);
+            $('body').append(form,searchResultsList);
+
+            
+            form.on("submit", function(event) {
+                event.preventDefault();
+                let searchTerm = searchInput.val();
+                queryWikipedia(searchTerm);
+            });
+        }
+
+        function addNewArticle(id,title,snippet) {
+            let listItem = $('<li>')
+                let titleParagraph = $("<p>").append(
+                    $("<span>").text("id - "),
+                    $("<b>").text(title)
+                );
+                let snippetParagraph = $("<p>").html(snippet); // Use .html() to correctly display HTML from Wikipedia
+            
+                listItem.append(titleParagraph,snippetParagraph);
+            $('ul').append(listItem)
+        }
+
+        function queryWikipedia(search) {
+            let apiUrl = `https://en.wikipedia.org/w/api.php`;
+            
+            let params = {
+                action:'query',
+                format:'json',
+                list:'search',
+                srsearch:search,
+                origin:'*'
+            }
+            $.ajax({
+                url:apiUrl,
+                data:params,
+                dataType:'jsonp',
+                success: function(data) {
+                    console.log(data.query);
+                    let results = data.query.search;
+                    results.forEach(function(result) {
+                        addNewArticle(result.pageid,result.title,result.snippet)
+                    })
+                },
+                error : function(xhr,status,error) {
+                    console.error("Error",error)
+                }
+            })
+        }
+
+        $(function () {
+            createSearchForm()
+        });
+    </script>
+</head>
+
+<body></body>
+
+</html>
