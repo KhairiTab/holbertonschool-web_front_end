@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Task 1</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script type="application/javascript">
+
+        function addPostRow(data) {
+            let my_p = $('<p>');
+                my_p.append('<span>').text(`Post created with id ${data.id}, title: ${data.title}, author: ${data.author}`)
+                $('body').append(my_p);
+        }
+
+        function listPosts() {
+            $.ajax({
+                url:'http://localhost:3000/posts',
+                type:'GET',
+                dataType:'json',
+            })
+            .done(function(data) {
+                data.forEach((post) => {
+                    addPostRow(post);
+                })
+            })
+            .fail(function(xhr,status,errorThrown) {
+                alert('Server Error');
+            })
+            
+        }
+
+        function buildForm() {
+            let form = $('<form id="target">')
+            let authorDiv = $('<div>');
+                let authorLabel = $('<label>').attr('for', 'author').text('Author');
+                let authorInput = $('<input type="text">').attr('id','author');
+            let titleDiv = $('<div>');
+                let titleLabel = $('<label>').attr('for', 'title').text('Title');
+                let textarea = $('<textarea>').attr('id','title');
+            
+            let submit = $('<input type="submit">');
+            submit.text('Submit');
+
+            authorDiv.append(authorLabel, authorInput);
+            titleDiv.append(titleLabel,textarea)
+            form.append(authorDiv,titleDiv,submit);
+            // add everything to body
+            $('body').append(form);
+            
+            // trigger the submit event
+            $('form').on('submit', function(e) {
+                e.preventDefault();
+                sendForm()
+            })
+
+            function sendForm() {
+                    $("form").after($("<p>").text('About to send the query to the API'));
+                let collectedData = {};
+                let authorData = $(':text').val();
+                let titleData = $('#title').val();
+                collectedData.author = authorData;
+                collectedData.title = titleData;
+                $.ajax({
+                    url : "http://localhost:3000/posts/",
+                    type : "POST",
+                    data : JSON.stringify( collectedData),
+                    success : function(data) {
+                        addPostRow(data)
+                    },
+                    error : function(error) {
+                        alert('Error sending the POST query')
+                    }
+                })
+            }
+        }
+        $(function() {
+            listPosts();
+            buildForm()
+        })
+    </script>
+</head>
+
+<body></body>
+
+</html>
