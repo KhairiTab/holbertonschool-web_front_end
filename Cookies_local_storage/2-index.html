@@ -6,37 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h2> Create cookie with expiration date and specific path</h2>
-    <form id="loginForm">
-        <input type="text" name="user_name" id="user_name" placeholder="Firstname">
-        <input type="email" name="email" id="email" placeholder="Email">
-        <input type="submit" value="Log me in">
-    </form><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h2> Create cookie with expiration date and specific path</h2>
-    <form id="loginForm">
-        <input type="text" name="user_name" id="user_name" placeholder="Firstname">
-        <input type="email" name="email" id="email" placeholder="Email">
-        <input type="submit" value="Log me in">
-    </form>
-    <h2>Cookies</h2>
-    <button id="showCookiesBtn">Show the cookies</button>
-    <div id="cookiesContainer"></div>
-    <script src="/src/index.js"></script>
-</body><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
     <h2>Login to the website</h2>
     <form id="loginForm">
         <input type="text" name="user_name" id="user_name" placeholder="Firstname">
@@ -61,25 +30,39 @@
             const d = new Date();
             d.setTime(d.getTime() + (10*24*60*60*1000));
             let expires  = "expires=" + d.toUTCString();
-            document.cookie = `username=${userName.value};${expires};path=/;`;
+            document.cookie = `firstname=${userName.value};${expires};path=/;`;
             document.cookie = `email=${email.value};${expires};path=/;`;
         }
-
         
+
+        /*
+        *@parametre: name
+        *@return cookie Value
+        */
+        function getCookie(name) {
+            const cookies = document.cookie.split(';').map((c) => {
+                return c.trim().split('=')
+            })
+            const cookiesObj = Object.fromEntries(cookies);
+            if(!cookiesObj[name]) {
+                return ''
+            }
+            return cookiesObj[name]
+        }
+
+
 
         function showCookies(e) {
             e.preventDefault();
             const cookies = document.cookie.split(';').map(cookie => cookie.trim());
-            let cookiesList = 'Cookies:<br>' + cookies.map(c => c.replace('=', ': ')).join('<br>');
-            cookiesContainer.innerHTML = cookiesList;
+            const cookiesKeys =  cookies.map(c => c.split('=')[0]).reverse();
+
+            let cookiesList = cookiesKeys.map((ele)  => {
+                console.log(ele.charAt(0).toUpperCase() + ele.slice(1))
+                return ele.charAt(0).toUpperCase() + ele.slice(1) + ": " + getCookie(...ele.split(" ")) + " "
+            })
+            cookiesContainer.innerHTML = cookiesList.join('- ');
         }
     </script>
-</body>
-</html>
-</html>
-    <h2>Cookies</h2>
-    <button id="showCookiesBtn">Show the cookies</button>
-    <div id="cookiesContainer"></div>
-    <script src="/src/index.js"></script>
 </body>
 </html>

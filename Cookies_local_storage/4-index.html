@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="form-container">
+        <div class="master">
+            <h2>Login to the website</h2>
+            <form id="loginForm">
+                <input type="text" name="user_name" id="user_name" placeholder="Firstname" />
+                <input type="email" name="email" id="email" placeholder="Email" />
+                <input type="submit" value="Log me in" />
+            </form>
+            <h2>Cookies</h2>
+            <button id="showCookiesBtn">Show the cookies</button>
+        </div>
+    </div>
+    <div id="cookiesContainer"></div>
+    <!-- ---------- -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    <script type="module">
+        document.addEventListener("DOMContentLoaded", function() {
+            const userNameInput = document.querySelector('input[name="user_name"]');
+            const emailInput = document.querySelector('input[name="email"]');
+            const loginForm = document.querySelector("#loginForm");
+            const showCookiesBtn = document.querySelector("#showCookiesBtn");
+            const cookiesContainer = document.querySelector("#cookiesContainer");
+            const masterDiv = document.querySelector('.master');
+            const formContainer = document.querySelector('.form-container');
+
+            const loginMessage = document.createElement('h1');
+            const logoutLink = document.createElement('a');
+            logoutLink.textContent = '(logout)';
+            logoutLink.style.fontWeight = "normal";
+            logoutLink.style.fontStyle = "italic";
+            logoutLink.style.paddingRight = "10px";
+            logoutLink.style.cursor = "pointer";
+
+            loginForm.addEventListener("submit", setCookiesAndShowWelcomeMessage);
+            showCookiesBtn.addEventListener("click", showCookies);
+            logoutLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                deleteCookiesAndShowForm();
+                loginMessage.remove();
+            });
+
+            function showCookies(e) {
+                e.preventDefault();
+                if (!document.cookie) return;
+
+                let cookies = document.cookie.split(";").map(cookie => cookie.trim());
+                let cookiesList = cookies.map(cookie => {
+                    let [name, value] = cookie.split("=");
+                    return `${name.charAt(0).toUpperCase() + name.slice(1)}: ${value}`;
+                });
+                cookiesContainer.innerHTML = cookiesList.join(" - ");
+            }
+
+            function showForm() {
+                if (loginMessage.parentNode) {
+                    loginMessage.remove();
+                }
+                masterDiv.style.display = "block";
+            }
+
+            function hideForm() {
+                masterDiv.style.display = "none";
+            }
+
+            function deleteCookiesAndShowForm() {
+                Cookies.remove('firstname');
+                Cookies.remove('email');
+                showForm();
+            }
+
+            function showWelcomeMessageOrForm() {
+                if (!document.cookie) {
+                    showForm();
+                    return;
+                }
+                hideForm();
+                const firstname = Cookies.get("firstname");
+                if (firstname) {
+                    loginMessage.textContent = `Welcome: ${firstname} `;
+                    loginMessage.appendChild(logoutLink);
+                    document.body.appendChild(loginMessage);
+                }
+            }
+
+            function setCookiesAndShowWelcomeMessage(e) {
+                e.preventDefault();
+                Cookies.set('firstname', userNameInput.value, { expires: 10, path: '/' });
+                Cookies.set('email', emailInput.value, { expires: 10, path: '/' });
+                showWelcomeMessageOrForm();
+            }
+
+            showWelcomeMessageOrForm();
+        });
+    </script>
+</body>
+
+</html>
